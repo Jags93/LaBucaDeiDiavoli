@@ -1,0 +1,64 @@
+﻿@model IEnumerable<LaBucaDeiDiavoli.Models.Articoli>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        body {
+            background-image: url('../../Content/image/sfondopizza.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .card-img-top {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Aggiungi Un Prodotto", "Create")
+    </p>
+
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-4">
+                    <div class="card" style="width: 18rem;">
+                        <img src="@Url.Content("~/Content/Image/" + item.Immagine)" style="height:285px; width:285px" class="card-img-top" alt="@item.Nome">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Nome</h5>
+                            <p class="card-text">Prezzo: @item.Prezzo</p>
+                            <p class="card-text">Tempo di consegna: @item.TempoConsegna</p>
+                            <input type="number" min="1" id="quantity-@item.IdArticolo" value="1">
+                            <form action="@Url.Action("AddToCart", "Articoli")" method="post">
+                                <input type="hidden" name="id" value="@item.IdArticolo" />
+                                <input type="submit" value="Aggiungi al carrello" class="btn btn-primary" />
+                            </form>
+
+                            <a href="@Url.Action("Edit", new { id = item.IdArticolo })" class="btn btn-primary">Edit</a>
+                            <a href="@Url.Action("Details", new { id = item.IdArticolo })" class="btn btn-primary">Details</a>
+                            <a href="@Url.Action("Delete", new { id = item.IdArticolo })" class="btn btn-danger">Delete</a>
+                           
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>
+

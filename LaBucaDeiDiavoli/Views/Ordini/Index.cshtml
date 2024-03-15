@@ -1,0 +1,27 @@
+﻿@model IEnumerable<LaBucaDeiDiavoli.Models.Ordini>
+
+@{
+    ViewBag.Title = "Ordini";
+}
+
+<div class="container">
+    <div class="row">
+        @foreach (var ordine in Model)
+        {
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@ordine.IdOrdine</h5>
+                        <p class="card-text">
+                            Utente: @ordine.Utenti.Username <br />
+                            Indirizzo: @ordine.Indirizzo <br />
+                            Evaso: @(ordine.IsEvaso ? "Sì" : "No") <br />
+                            Data ordine: @ordine.DataOrdine.ToShortDateString()
+                        </p>
+                        <a href="@Url.Action("Details", "Ordini", new { id = ordine.IdOrdine })" class="btn btn-primary">Dettagli</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
